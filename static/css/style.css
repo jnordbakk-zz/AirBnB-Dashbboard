@@ -1,0 +1,178 @@
+body {
+    background-color:white;
+  }
+  
+  html {
+    height: 100%;
+  }
+  
+#map {
+  height: 300px;
+}
+
+#bar_plot{
+  height: 500px;
+}
+
+#reportHeader{
+  color: tomato;
+  text-align: center;
+  font-family: 'Roboto Slab', serif;
+}
+.reportline{
+  color: darkcyan;
+  font-size: 15px;
+  font-family: 'Roboto Slab', serif;
+}
+/* .container{
+  padding: 0px 0px 15px 0px;
+} */
+.map_container {
+  background:lightgrey;
+}
+.legend {
+  padding: 6px 8px;
+  font: 15px Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color:black;
+  text-align: justify;
+  /* background: lightgrey; */
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+.legend i {
+    width: 28px;
+    height: 28px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.labels li {
+  width:20px;
+}
+/* below css adjust li inside ul insidel maplegend */
+.maplegend ul li{
+  height: 10px;
+}
+.table {
+  font-size: 10px;
+}
+
+.header-container{
+  background-color:white;
+}
+.chart_container{
+  height: 800;
+}
+p{
+font-family: 'Roboto Slab', serif;
+}
+.landing-h1{
+  padding-top: 5%;
+  font-family: 'Roboto Slab', serif;
+  color:cornflowerblue;
+}
+.comparison-h1{
+  padding-top: 5%;
+  font-family: 'Roboto Slab', serif;
+  font-size: 25px;
+  color:cornflowerblue;
+}
+.navbar{
+  font-family: 'Roboto Slab', serif;
+}
+.navbar-brand {
+  float: left;
+  height: 50px;
+  padding: 15px 50px;
+  font-size: 28px;
+  line-height: 20px;
+  margin: 0 0 0 0;
+  color: aliceblue;
+  background-color:cornflowerblue;
+}
+.white{
+  background-color: white;
+}
+
+.landing-fig-lg { 
+  width: 45%;
+}
+.landing-fig-sm {
+  width: 95%;
+}
+
+.sub_header {
+  text-align: center;
+  font-size: 18px;
+  margin: 0;
+  color: cornflowerblue;
+}
+
+.hr-footer {
+  border: 0;
+  height: 5px;
+  background-color: cornflowerblue;
+}
+
+.hr-other {
+  border: 0;
+  height: 3px;
+  background-color: tomato;
+}
+
+.btn {
+  padding: 5px 60px;
+  text-anchor: left;
+  font-size: 20px;
+  color: cornflowerblue;
+  border-radius: 5px;
+  font-family: 'Roboto Slab', serif;
+}
+
+/* Chartjs CSS */
+
+/*  */
+
+/* Dash CSS */
+
+/*path {  stroke: #fff; }*/
+
+path:hover {  opacity:0.9; }
+rect:hover {  fill:blue; }
+.axis {  font: 10px sans-serif; }
+.legend tr{    border-bottom:1px solid grey; }
+.legend tr:first-child{    border-top:1px solid grey; }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {  display: none; }
+.legend{
+    margin-bottom:76px;
+    display:inline-block;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+.legend td{
+    padding:4px 5px;
+    vertical-align:bottom;
+}
+.legendFreq, .legendPerc{
+    width:50px;
+}
+/* End of Dash CSS */
+
+
+@media screen and (max-width:768px){
+  .primary-content{
+      float: left;
+      width:50%;
+      display: none;
+  }
+}

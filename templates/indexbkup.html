@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Airbnb</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <!--link rel="stylesheet" href="./Resources/css/styles.css"-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Leaflet CSS & JS-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+    integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+    crossorigin=""></script>
+    
+    <!-- Marker Cluster JS & CSS -->
+    <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+
+    <!-- d3 JavaScript -->
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!--script type="text/javascript" src="static/js/choropleth.js"></script-->
+
+    <script type="text/javascript" src="static/js/choropleth.js"></script>
+    <!-- Our CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="container header-container">
+          <div class="navbar-header">
+          <a class="navbar-brand" href="http://127.0.0.1:5000/index">Airbnb</a>
+          </div>
+          <ul class="nav navbar-nav navbar-right my-menu">
+          <li><a href="http://127.0.0.1:5000/listingsall" class="nav-btn">Data</a></li>
+          </ul>
+      </div>
+    </nav>
+    <!-- The div where we will inject our map -->
+    <div class="container" id="map_container">
+        <div class="row">
+            <div class="primary-content col-md-12 pull-left">
+                <div id="map"></div>
+                <script>
+                    //https://stackoverflow.com/questions/11178426/how-can-i-pass-data-from-flask-to-javascript-in-a-template
+                    //http://jinja.pocoo.org/docs/2.10/
+                    var coord_data = {{data|tojson}}; //data from python converted to json
+                </script>
+                
+                <!--the below is used to make sure the javascripts are found when rendering page from flask-->
+                <!-- https://stackoverflow.com/questions/46349370/javascript-file-not-found-using-relative-path-during-flask-render-template -->
+                <script src="{{url_for('static', filename='js/config.js')}}"></script>
+                <script src="{{url_for('static', filename='js/allmapping.js')}}"></script>
+            </div>
+        </div>
+        <hr class="hr-other">
+    </div>
+    <div class="container" id="button_container">
+            <div class="row">
+                <div class="col-md-3">
+                    <button id="button1" type="button" class="btn btn-default btn-md center-block">Listings</button>
+                </div>
+                <div class="col-md-3">
+                    <button id="button2" type="button" class="btn btn-default btn-md center-block">Max Price</button>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+    </div>
+    <div class="container chart_container">
+        <div class="row">
+            <div class="primary-content col-md-6">
+                <div id="bar_plot">
+                    <script src="{{url_for('static', filename='js/bar.js')}}"></script>
+                </div>
+            </div>
+
+            <div class="primary-content col-md-6">
+                <div id="reportHeader"><h1>Airbnb Report</h1></div>
+                <div class="row reportline">
+                    <p>
+                        The report is built from third party scraped data in a csv format. 
+                        It includes Airbnb listings data which consists of price, listing id, 
+                        ratings, longitude, latitude etc.
+                    </p>
+                    <p>
+                        The map is composed of geojson data on neighborhood with color coding 
+                        based on average price of the listing. It also includes a clustered
+                        layer of listings with listing price.
+                    </p>
+                    <p>
+                        The bar chart is iterchangeable on neighborhood and total listings
+                        offered or neighborhood and maxium price for the listing on the
+                        specific neighborhood. 
+                    </p>
+                    <p>
+                        The mini dashboard displays data based on the type of listing with 
+                        minimum, average, and maximum price offered for that type of listing. 
+                        The top of the barchart display the total price combined for low, mid, and 
+                        high. The Pie chart displays the same data in color coded format. <br>
+                        The Pie chart, when hovered over, displays the high price, low price, and mid 
+                        price for each type of listing in the bar chart. 
+                    </p>
+                </div>
+                <!-- <script src="{{url_for('static', filename='js/pie.js')}}"></script>
+                <div id="pie"></div> -->
+            </div>    
+        </div>
+        <hr class="hr-other">
+    </div>
+    <div class="container" id="dash_container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="dash">
+                    <div id='dashboard'></div>
+                    <script src="{{url_for('static', filename='js/dash.js')}}"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+
+    <div class="container">
+        <footer class="page-footer font-small blue">
+            <hr class="hr-footer">
+            <div class="footer-copyright text-center py-3">© 2018 Copyright Dipesh/Josh/Julia</div>
+        </footer>
+    </div>
+</html>
