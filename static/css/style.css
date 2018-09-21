@@ -19,6 +19,13 @@ body {
   text-align: center;
   font-family: 'Roboto Slab', serif;
 }
+
+#reportHeader2{
+  color: tomato;
+  text-align: right;
+  font-family: 'Roboto Slab', serif;
+}
+
 .reportline{
   color: darkcyan;
   font-size: 15px;

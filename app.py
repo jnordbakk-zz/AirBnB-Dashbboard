@@ -50,7 +50,7 @@ def get_landing():
             'weekly_price','monthly_price','availability_365','longitude','latitude','number_of_reviews','review_scores_rating',
             'reviews_per_month']
     response_df.columns = header
-    coord_df = response_df[["longitude","latitude","price","picture_url"]]
+    coord_df = response_df[["longitude","latitude","price","picture_url","bedrooms"]]
     
     return_file = json.loads(coord_df.to_json(orient='records'))
     
@@ -111,42 +111,61 @@ def pie_json():
     return_file = json.loads(response_df[["neighbourhood","id"]].to_json(orient='records'))
     return jsonify(return_file)
 
+# @app.route("/map-geojson")
+# def get_mapdata():
+
+#    #01 Read in data
+#    path = "static/data/filtered_listings.csv"
+#    data = pd.read_csv(path)
+#    geodata =gpd.read_file('static/data/neighbourhoods.geojson')
+
+#    #02 Create the summmary stats and add to JSON file
+#    summarydata = data.groupby('neighbourhood').mean()
+#    summarydata.reset_index(inplace = True )
+#    geodata = pd.merge(geodata, summarydata, how = 'left', on = 'neighbourhood')
+
+#    # 03 Convert back to Dictionary and JSONIFY
+#    geodict = json.loads(geodata.to_json(na = 'null'))
+
+#    #04 Render to site
+#    return jsonify(geodict)
+
 @app.route("/map-geojson")
 def get_mapdata():
 
-   #01 Read in data
-   path = "static/data/filtered_listings.csv"
-   data = pd.read_csv(path)
-   geodata =gpd.read_file('static/data/neighbourhoods.geojson')
-   #clean up neighbourgood names
-   geodata['neighbourhood'].replace('Outer Richmond','Richmond District',inplace=True)
-   geodata['neighbourhood'].replace('Inner Richmond','Richmond District',inplace=True)
-   geodata['neighbourhood'].replace('West of Twin Peaks','Twin Peaks',inplace=True)
+  #01 Read in data
+  path = "static/data/filtered_listings.csv"
+  data = pd.read_csv(path)
+  geodata =gpd.read_file('static/data/neighbourhoods.geojson')
+  #clean up neighbourgood names
+  geodata['neighbourhood'].replace('Outer Richmond','Richmond District',inplace=True)
+  geodata['neighbourhood'].replace('Inner Richmond','Richmond District',inplace=True)
+  geodata['neighbourhood'].replace('West of Twin Peaks','Twin Peaks',inplace=True)
 
-   #02 Create the summmary stats and add to JSON file
-   summarydata = data.groupby('neighbourhood').mean()
-   summarydata.reset_index(inplace = True )
+  #02 Create the summmary stats and add to JSON file
+  summarydata = data.groupby('neighbourhood').mean()
+  summarydata.reset_index(inplace = True )
 
-   #clean up neighbourgood names
-   summarydata['neighbourhood'].replace('Haight-Ashbury','Haight Ashbury',inplace=True)
-   summarydata['neighbourhood'].replace('Mission District','Mission',inplace=True)
-   summarydata['neighbourhood'].replace('SoMa','South of Market',inplace=True)
-   summarydata['neighbourhood'].replace('Presidio Heights','Presidio Heights',inplace=True)
-   summarydata['neighbourhood'].replace('Oceanview','Ocean View',inplace=True)
-   summarydata['neighbourhood'].replace('The Castro','Castro/Upper Market',inplace=True)
-   summarydata['neighbourhood'].replace('Sea Cliff','Seacliff',inplace=True)
-   summarydata['neighbourhood'].replace('Downtown','Downtown/Civic Center',inplace=True)
-   summarydata['neighbourhood'].replace('Western Addition','Western Addition/NOPA',inplace=True)
-   summarydata['neighbourhood'].replace('Sea Cliff','Seacliff',inplace=True)
-  
+  #clean up neighbourgood names
+  summarydata['neighbourhood'].replace('Haight-Ashbury','Haight Ashbury',inplace=True)
+  summarydata['neighbourhood'].replace('Mission District','Mission',inplace=True)
+  summarydata['neighbourhood'].replace('SoMa','South of Market',inplace=True)
+  summarydata['neighbourhood'].replace('Presidio Heights','Presidio Heights',inplace=True)
+  summarydata['neighbourhood'].replace('Oceanview','Ocean View',inplace=True)
+  summarydata['neighbourhood'].replace('The Castro','Castro/Upper Market',inplace=True)
+  summarydata['neighbourhood'].replace('Sea Cliff','Seacliff',inplace=True)
+  summarydata['neighbourhood'].replace('Downtown','Downtown/Civic Center',inplace=True)
+  summarydata['neighbourhood'].replace('Western Addition/NOPA','Western Addition',inplace=True)
+  summarydata['neighbourhood'].replace('Sea Cliff','Seacliff',inplace=True)
 
-   geodata = pd.merge(geodata, summarydata, how = 'left', on = 'neighbourhood')
+  geodata = pd.merge(geodata, summarydata, how = 'left', on = 'neighbourhood')
 
-   # 03 Convert back to Dictionary and JSONIFY
-   geodict = json.loads(geodata.to_json(na = 'null'))
+  # 03 Convert back to Dictionary and JSONIFY
+  geodict = json.loads(geodata.to_json(na = 'null'))
 
-   #04 Render to site
-   return jsonify(geodict)
+  #04 Render to site
+  return jsonify(geodict)
+
 
 @app.route("/summary-json")
 def get_summary():

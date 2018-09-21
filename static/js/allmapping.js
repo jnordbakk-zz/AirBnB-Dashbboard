@@ -18,9 +18,10 @@ featureList.forEach(feature =>{
     var coords = [feature.latitude,feature.longitude];
     var price = feature.price;
     var image = feature.picture_url;
+    var bedrooms = feature.bedrooms;
 
     cMarkers.addLayer(L.marker(coords)
-        .bindPopup("<h2>Price: " + price + "</h2>"));
+        .bindPopup("<h2>Price: " + price + "</h2><hr><br><h4># of Bedrooms: "+ bedrooms +"</h4>"));
 });
 
 var url = "/map-geojson";
@@ -81,7 +82,7 @@ d3.json(url, function(data) {
         var labels = [];
 
         // Add min & max
-        var legendInfo = "<h4>Median Income</h4>" +
+        var legendInfo = "<h4>Average Price</h4>" +
             "<div class=\"labels\">" +
             "<div style='font-size:12px;'>" + limits[0] + "</div>" +
             "</div>";

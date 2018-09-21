@@ -161,9 +161,10 @@ function dashboard(id, fData){
         tr.append("td").attr("class",'legendFreq')
             .text(function(d){ return d3.format(",")(d.freq);});
 
-        // create the fourth column for each segment.
-        tr.append("td").attr("class",'legendPerc')
-            .text(function(d){ return getLegend(d,lD);});
+        // create the fourth column for each segment. 
+        //Dipesh changed this to hide percentage stuff
+        // tr.append("td").attr("class",'legendPerc')
+        //     .text(function(d){ return getLegend(d,lD);});
 
         // Utility function to be used to update the legend.
         leg.update = function(nD){
@@ -174,7 +175,8 @@ function dashboard(id, fData){
             l.select(".legendFreq").text(function(d){ return d3.format(",")(d.freq);});
 
             // update the percentage column.
-            l.select(".legendPerc").text(function(d){ return getLegend(d,nD);});        
+            //dipesh deleted this..no need for updating percentage if we're not displaying it. 
+            //l.select(".legendPerc").text(function(d){ return getLegend(d,nD);});        
         }
         
         function getLegend(d,aD){ // Utility function to compute percentage.

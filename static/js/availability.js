@@ -34,11 +34,11 @@ function buildLine() {
             y: not_avail.map(bdata => bdata.count),
             x: not_avail.map(bdata => bdata.date),
             type: "line",
-            name: "Unavailable Listings"
+            name: "Rented Listings"
         },
     ];
     var lineTitle = "Availability over time";
-    var lineYaxis = "Listings available/unavailable";
+    var lineYaxis = "Listings rented/available";
     var lineLayout = {
     title: lineTitle,
     yaxis: { title: lineYaxis}
